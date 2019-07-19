@@ -1,6 +1,7 @@
 <?php
 namespace smazur\xpe\math;
 
+use smazur\xpe\Utils;
 use smazur\xpe\SyntaxParser;
 
 class MathParser extends SyntaxParser {
