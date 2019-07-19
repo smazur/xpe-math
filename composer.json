@@ -1,0 +1,27 @@
+{
+    "name": "smazur/xpe-math-parser",
+    "description": "Simple math parser based on XPE library",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stanislav Mazur",
+            "email": "cyrus.00000@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+		"smazur/xpe": "master"
+	},
+	"autoload": {
+		"psr-4": {
+			"smazur\\xpe\\math\\": "src/"
+		}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/smazur/xpe"
+		}
+	]
+}

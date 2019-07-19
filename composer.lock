@@ -1,0 +1,58 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "b5af2eb25c6e8b55bf9d3b1c83736b23",
+    "content-hash": "8caeec1c6d74f8859087d37beb1d020e",
+    "packages": [
+        {
+            "name": "smazur/xpe",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smazur/xpe.git",
+                "reference": "796efb42fac973169e31504af608767a136c94c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smazur/xpe/zipball/796efb42fac973169e31504af608767a136c94c0",
+                "reference": "796efb42fac973169e31504af608767a136c94c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "smazur\\xpe\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stanislav Mazur",
+                    "email": "mazur.stas@gmail.com"
+                }
+            ],
+            "description": "Extensible Parsing Engine",
+            "support": {
+                "source": "https://github.com/smazur/xpe/tree/master",
+                "issues": "https://github.com/smazur/xpe/issues"
+            },
+            "time": "2019-07-19 17:25:28"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
