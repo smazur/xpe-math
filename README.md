@@ -5,6 +5,7 @@ Following features are supported:
 * Binary operators: `+`, `-`, `\*`, `/`, `%`, `^`
 * Unary operators: `+`, `-`
 * Expressions in parentheses: `(2 + 2) * 2`
+* Constants: `const foo = 42`
 * Variables: `foo = 2 + 2 * 2`
 * Functions: `func inc(x) { x + 1 }; inc(1)`
 
