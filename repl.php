@@ -17,7 +17,7 @@ $parser->context->functions = array(
 	'round' => 'round',
 	'ceil' => 'ceil',
 	'floor' => 'floor',
-	'clamp' => function( $x, $min, $max ) {
+	'clamp' => static function( $x, $min, $max ) {
 		return min( $max, max( $x, $min ) );
 	},
 );

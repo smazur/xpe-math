@@ -16,12 +16,10 @@ class UnaryNode extends ASTNode {
 		switch( $this->operator ) {
 		case '+':
 			return $v;	
-		break;
 		case '-':
 			return -$v;	
-		break;
 		}
 
-		throw new Exception( sprintf( 'Unknown unary operator "%s"', $this->operator ) );
+		throw new \Exception( sprintf( 'Unknown unary operator "%s"', $this->operator ) );
 	}
 }

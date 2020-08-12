@@ -18,24 +18,18 @@ class BinaryNode extends ASTNode {
 		switch( $this->operator ) {
 		case '+':
 			return $lv + $rv;	
-		break;
 		case '-':
 			return $lv - $rv;	
-		break;
 		case '*':
 			return $lv * $rv;	
-		break;
 		case '/':
 			return $lv / $rv;	
-		break;
 		case '%':
 			return $lv % $rv;
-		break;
 		case '^':
-			return pow( $lv, $rv );
-		break;
+			return $lv ** $rv;
 		}
 
-		throw new Exception( sprintf( 'Unknown binary operator "%s"', $this->operator ) );
+		throw new \Exception( sprintf( 'Unknown binary operator "%s"', $this->operator ) );
 	}
 }

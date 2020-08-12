@@ -26,8 +26,8 @@ class FuncNode extends ASTNode {
 
 			$args = func_get_args();
 
-			if( sizeof( $this->args ) != sizeof( $args ) ) {
-				throw new \Exception( sprintf('Function "%s" requires %d arguments got %d', $this->name, sizeof( $this->args ), sizeof( $args ) ) );
+			if( count( $this->args ) !== count( $args ) ) {
+				throw new \Exception( sprintf('Function "%s" requires %d arguments got %d', $this->name, count( $this->args ), count( $args ) ) );
 			}
 
 			foreach( $this->args as $argi => $argname ) {

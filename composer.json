@@ -11,8 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-		"smazur/xpe": "master"
-	},
+		"smazur/xpe": "master",
+        "ext-readline": "*"
+    },
 	"autoload": {
 		"psr-4": {
 			"smazur\\xpe\\math\\": "src/"

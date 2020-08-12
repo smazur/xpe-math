@@ -21,8 +21,8 @@ class MathTokenizer extends Tokenizer {
 	public function __construct( $expr ) {
 		parent::__construct( $expr );
 
-		$num_value = function( $match ) {
-			return floatval( $match[0] );
+		$num_value = static function( $match ) {
+			return (float) $match[0];
 		};
 
 		$this->add_parser(

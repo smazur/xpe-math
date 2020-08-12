@@ -2,21 +2,24 @@
 namespace smazur\xpe\math;
 
 use smazur\xpe\Utils;
+use smazur\xpe\SyntaxError;
 use smazur\xpe\SyntaxParser;
 
 class MathParser extends SyntaxParser {
 	public $context;
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->context = new MathContext();
 		$this->init_parse_rules();
 	}
 
 	protected function init_parse_rules() {
-		$reduce_binary_expr = function( $m ) {
+		$reduce_binary_expr = static function( $m ) {
 			$list_len = count( $m  );
 
-			if( $list_len == 1 ) {
+			if( $list_len === 1 ) {
 				return $m[0];
 			}
 
@@ -29,10 +32,10 @@ class MathParser extends SyntaxParser {
 			return $node;
 		};
 
-		$reduce_pow_expr = function( $m ) {
+		$reduce_pow_expr = static function( $m ) {
 			$list_len = count( $m  );
 
-			if( $list_len == 1 ) {
+			if( $list_len === 1 ) {
 				return $m[0];
 			}
 
@@ -49,17 +52,17 @@ class MathParser extends SyntaxParser {
 			return $node;
 		};
 
-		$return0 = function( $m ) { return $m[0]; };
-		$return1 = function( $m ) { return $m[1]; };
+		$return0 = static function( $m ) { return $m[0]; };
+		$return1 = static function( $m ) { return $m[1]; };
 
 		// TOKENS
-		$this->add_token( 'tok-number', MathTokenizer::TOK_NUMBER )->onmatch(function( $m ) {
+		$this->add_token( 'tok-number', MathTokenizer::TOK_NUMBER )->onmatch( static function( $m ) {
 			$node = new NumberNode( $m->value );
 			$node->set_meta( 'token', $m );
 			return $node;
 		});
 
-		$this->add_token( 'tok-var', MathTokenizer::TOK_IDENTIFIER )->onmatch(function( $m ) {
+		$this->add_token( 'tok-var', MathTokenizer::TOK_IDENTIFIER )->onmatch( static function( $m ) {
 			$node = new VarNode( $m->value );
 			$node->set_meta( 'token', $m );
 			return $node;
@@ -91,14 +94,14 @@ class MathParser extends SyntaxParser {
 			'separator_return' => false,
 		]);
 
-		$this->add_rule( 'call-expr', [ 'tok-name', 'tok-open-par', 'call-args', 'tok-close-par' ] )->onmatch(function( $m ) {
+		$this->add_rule( 'call-expr', [ 'tok-name', 'tok-open-par', 'call-args', 'tok-close-par' ] )->onmatch( static function( $m ) {
 			$node = new FuncCallNode( $m[0]->value, $m[2] );
 			$node->set_meta( 'token', $m[0] );
 			return $node;
 		})->onerror( 2, 3, function( $m, $t ) {
 			$tok = $t->check_token();
 
-			switch( sizeof( $m ) ) {
+			switch( count( $m ) ) {
 			case 2:
 				throw new SyntaxError( 'Expecting function arguments or \')\'.', $tok->line, $tok->line_offset );
 			default:
@@ -116,16 +119,15 @@ class MathParser extends SyntaxParser {
 				$line   = $tok ? $tok->line : 0;
 				$offset = $tok ? $tok->line_offset + $tok->len : 0;
 
-				switch( sizeof( $m ) ) {
+				switch( count( $m ) ) {
 					case 1:
 						throw new SyntaxError( 'Expecting expression.', $line, $offset );
-					break;
 					default:
 						throw new SyntaxError( 'Expecting \')\'.', $line, $offset );
 				}
 			});
 
-		$this->add_rule( 'unar-expr', [ 'tok-unar-operator', 'term' ] )->onmatch( function( $m ) {
+		$this->add_rule( 'unar-expr', [ 'tok-unar-operator', 'term' ] )->onmatch( static function( $m ) {
 			return new UnaryNode( $m[0]->content, $m[1] );
 		});
 
@@ -135,10 +137,8 @@ class MathParser extends SyntaxParser {
 		$this->add_list_rule( 'mul-expr', 'pow-expr', 'tok-mul' )->onmatch( $reduce_binary_expr );
 		$this->add_list_rule( 'pow-expr', 'unar-expr', 'tok-pow' )->onmatch( $reduce_pow_expr );
 
-		$this->add_rule( 'assign-statement', [ 'tok-name', 'tok-assign', 'sum-expr' ] )->onmatch( function( $m ) {
+		$this->add_rule( 'assign-statement', [ 'tok-name', 'tok-assign', 'sum-expr' ] )->onmatch( static function( $m ) {
 			return new AssignNode( $m[0]->content, $m[2] );
-		})->onerror( function( $m, $t ) {
-
 		});
 
 		$this->add_rule( 'const-statement', [ 'tok-const', 'tok-name', 'tok-assign', 'sum-expr' ] )->onmatch( function( $m ) {
@@ -154,7 +154,7 @@ class MathParser extends SyntaxParser {
 			$line   = $tok->line;
 			$offset = $tok->line_offset;
 
-			switch( sizeof( $m ) ) {
+			switch( count( $m ) ) {
 			case 1:
 				throw new SyntaxError( 'Expecting constant name.', $line, $offset );
 			case 2:
@@ -192,7 +192,7 @@ class MathParser extends SyntaxParser {
 			$offset = $tok->line_offset;
 
 			// Throw exception depending on number of matched rule elements.
-			switch( sizeof( $m ) ) {
+			switch( count( $m ) ) {
 			case 1:
 				throw new SyntaxError( 'Expecting function name.', $line, $offset );
 			case 2:
@@ -233,7 +233,7 @@ class MathParser extends SyntaxParser {
 
 		$this->add_list_rule( 'statement-list', 'statement', 'tok-semicolon' )->opts([
 			'separator_return' => false
-		])->onmatch( function( $m ) {
+		])->onmatch( static function( $m ) {
 			$node = new ExprListNode();
 			$node->add_child( $m );
 			return $node;
